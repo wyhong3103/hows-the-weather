@@ -2,7 +2,7 @@ import display from "./display";
 
 const controller =(()=>{
     function init(){
-        display.mainPage();
+        display.resultPage();
     }
 
     return {
