@@ -41,12 +41,16 @@ const display = (() => {
         curTitle.textContent = "Current Weather Data";
 
         const newSearchContainer = createComp("div", "new-search");
-        const newSerachBtn = createComp("div", "new-search-btn");
-        newSerachBtn.textContent = "New Search";
+        const newSearchBtn = createComp("div", "new-search-btn");
+        newSearchBtn.textContent = "New Search";
+        newSearchContainer.appendChild(newSearchBtn);
+
 
         const switchContainer = createComp("div", "switch");
         const switchBtn = createComp("div", "switch-btn");
         switchBtn.textContent = "°C";
+
+        switchContainer.appendChild(switchBtn);
 
         curWeather.appendChild(curTitle);
         curWeather.appendChild(newSearchContainer);
