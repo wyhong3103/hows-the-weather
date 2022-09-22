@@ -33,6 +33,48 @@ const display = (() => {
         content.appendChild(searchBar);
     }
 
+    function addFutureCard(date, temperature, iconId){
+        const futureCard = createComp("div", "future-card");
+        const futureDate = createComp("div", "future-date");
+        const futureTemperature = createComp("div", "future-temperature");
+        const futureWeatherSvg = createComp("img");
+
+        futureDate.textContent = date;
+        futureTemperature.textContent = temperature;
+        futureWeatherSvg.src = `./assets/${iconId}.svg`
+
+        futureCard.appendChild(futureDate);
+        futureCard.appendChild(futureTemperature);
+        futureCard.appendChild(futureWeatherSvg);
+
+        const futureCardsContainer = selectComp(".future-cards-container");
+        futureCardsContainer.appendChild(futureCard);
+    }
+
+    function setCurData(curWeatheObject){
+        const curTime = selectComp(".cur-time");
+        const curPlace = selectComp(".cur-place");
+        const curTemperature = selectComp(".cur-temperature");
+        const curDesc = selectComp(".cur-desc");
+        const curWeatherSvg = selectComp("#cur-weather-svg")
+        const feelsLikeVal = selectComp(".feels-like-val");
+        const humidityVal = selectComp(".humidity-val");
+        const windVal = selectComp(".wind-val");
+        const visibilityVal = selectComp(".visibility-val");
+        const cloudinessVal = selectComp(".cloudiness-val");
+
+        curTime.textContent = curWeatheObject.time;
+        curPlace.textContent = curWeatheObject.place;
+        curTemperature.textContent = curWeatheObject.temperature;
+        curDesc.textContent = curWeatheObject.desc;
+        curWeatherSvg.src = `./assets/${curWeatheObject.iconId}.svg`;
+        feelsLikeVal.textContent = curWeatheObject.feelsLikeVal;
+        humidityVal.textContent = curWeatheObject.humidityVal;
+        windVal.textContent = curWeatheObject.windVal;
+        visibilityVal.textContent = curWeatheObject.visibilityVal;
+        cloudinessVal.textContent = curWeatheObject.cloudinessVal;
+    }
+
     function resultPage(){
         const mainContainer = createComp("div", "main-container");
         
@@ -116,7 +158,7 @@ const display = (() => {
         humidityCard.appendChild(humidityTitle);
         humidityCard.appendChild(humidityVal);
 
-        const windCard = createComp("div", "windspeed");
+        const windCard = createComp("div", "wind");
         windCard.classList.add("right-card");
         const windIcon = createComp("img", "icon-svg");
         windIcon.src = "./assets/wind.svg";
@@ -199,7 +241,9 @@ const display = (() => {
 
     return {
         mainPage,
-        resultPage
+        resultPage,
+        addFutureCard,
+        setCurData
     }
 })();
 
