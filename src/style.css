@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+
+
+*{
+    margin : 0;
+    padding : 0;
+    box-sizing: border-box;
+}
+
+html{
+    font-size : 10px;
+    --background : #1b1d1f;
+    --search-bg : #2c2f33;
+    --grayA : #3f3f46;
+    --grayB : #52525b;
+    --grayC : #71717a;
+    --grayD : #a1a1aa;
+    --grayE : #d4d4d8;
+    --main-font : 'Archivo Black', sans-serif;
+}
+
+#content{
+    height : 100vh;
+    width : 100vw;
+    background-color: var(--background);
+    display : flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap : 1rem;
+}
+
+.icon-svg{
+    filter: invert(96%) sepia(1%) saturate(7058%) hue-rotate(188deg) brightness(72%) contrast(77%);
+}
+
+.title{
+    font-family: var(--main-font);
+    font-size : 5rem;
+}
+
+.title-1{
+    color : var(--grayB);
+}
+
+.title-2{
+    color : var(--grayE);
+}
+
+.search-bar{
+    display: flex;
+    flex-direction: row;
+}
+
+#search{
+    font-size : 2rem;
+    padding : 1rem;
+    font-family: var(--main-font);
+    background-color: var(--search-bg);
+    color : var(--grayD);
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border : none;
+}
+
+#search:focus{
+    outline: none;
+}
+
+.search-btn{
+    width : 7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--grayA);
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    transition : all 0.3s;
+}
+
+.search-btn img{
+    height : 3rem;
+    width : 3rem;
+}
+
+.search-btn:hover{
+    cursor: pointer;
+    background-color: var(--grayB);
+}
+
