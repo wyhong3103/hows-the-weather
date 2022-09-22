@@ -126,6 +126,12 @@ html{
     font-size : 2rem;
     border-radius: 1rem;
     padding : 1rem;
+    transition: all 0.3s;
+}
+
+.new-search-btn:hover{
+    cursor: pointer;
+    color : var(--grayE);
 }
 
 .switch{
