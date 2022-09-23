@@ -1,4 +1,4 @@
-# What's the Weather?
+# How's the Weather?
 
 Hello, this is my weather forecasting webapp. Feel free to use it! 
 

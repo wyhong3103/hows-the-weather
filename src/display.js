@@ -18,7 +18,7 @@ const display = (() => {
         const titleLeft = createComp("span", "title-1");
         const titleRight = createComp("span", "title-2");
 
-        titleLeft.textContent = "What's The";
+        titleLeft.textContent = "How's The";
         titleRight.textContent = " Weather?";
 
         title.appendChild(titleLeft);
