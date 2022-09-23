@@ -43,6 +43,7 @@ const apiHandler = (() => {
 
         const ret = {
             "curWeatherData" : {
+                "timezone" : curWeatherData.timezone,
                 "temperature" : curWeatherData.main.temp,
                 "place" : loc,
                 "desc" : curWeatherData.weather[0].description,

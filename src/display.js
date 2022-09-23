@@ -87,7 +87,7 @@ const display = (() => {
         cloudinessVal.textContent = curWeatheObject.cloudinessVal;
     }
 
-    function resultPage(){
+    function resultPage(celcius){
         const mainContainer = createComp("div", "main-container");
         
         const curWeather = createComp("div", "cur-weather");
@@ -102,7 +102,7 @@ const display = (() => {
 
         const switchContainer = createComp("div", "switch");
         const switchBtn = createComp("div", "switch-btn");
-        switchBtn.textContent = "°C";
+        switchBtn.textContent = (celcius === true ? "°F" : "°C");
 
         switchContainer.appendChild(switchBtn);
 

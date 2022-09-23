@@ -1,4 +1,4 @@
-import { selectComp, getNow} from "./util";
+import { selectComp, getTime, getTemperature, capitalizeString} from "./util";
 import apiHandler from "./apiHandler";
 import display from "./display";
 
@@ -6,58 +6,19 @@ const controller =(()=>{
     let weatherData = {};
     let celcius = true;
 
-    function getTemperature(temp){
-        return Math.floor(celcius === true ? temp - 273.15 : 1.8*(temp-273.15) + 32);
-    }
-    function capitalizeFirstLetter(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-    }
-      
-
-    function capitalizeString(string){
-        const arr = string.split(" ");
-        const newArr = [];
-        for(let i = 0; i < arr.length; i++){
-            newArr.push(capitalizeFirstLetter(arr[i]));
-        }
-        return newArr.join(" ");
-    }
-
     function getProcessedData(){
         return{
-            "time" : getNow(),
+            "time" : getTime(weatherData.curWeatherData.timezone),
             "place" : weatherData.curWeatherData.place,
-            "temperature" : `${getTemperature(weatherData.curWeatherData.temperature)} ${(celcius === true ? "°C" : "°F")}`,
+            "temperature" : `${getTemperature(weatherData.curWeatherData.temperature, celcius)} ${(celcius === true ? "°C" : "°F")}`,
             "desc" : capitalizeString(weatherData.curWeatherData.desc),
             "iconId" : weatherData.curWeatherData.iconId,
-            "feelsLikeVal" : `${getTemperature(weatherData.curWeatherData.feelsLikeVal)} ${(celcius === true ? "°C" : "°F")}`,
+            "feelsLikeVal" : `${getTemperature(weatherData.curWeatherData.feelsLikeVal, celcius)} ${(celcius === true ? "°C" : "°F")}`,
             "humidityVal" : `${weatherData.curWeatherData.humidityVal} %`,
             "visibilityVal" :`${Math.floor(weatherData.curWeatherData.visibilityVal/10000) * 100} %`,
             "windVal" : `${weatherData.curWeatherData.windVal} m/s`,
             "cloudinessVal" : `${weatherData.curWeatherData.cloudinessVal} %`,
         }
-    }
-
-    function setResultPage(){
-        const curProcessedData = getProcessedData();
-        display.setCurData(curProcessedData);
-        for(let i = 0; i < weatherData.fuWeatherData.length; i++){
-            const curData = weatherData.fuWeatherData[i];
-            const {date} = curData;
-            const temperature = `${getTemperature(curData.temperature)} ${(celcius === true ? "°C" : "°F")}`;
-            const {iconId} = curData;
-            display.addFutureCard(date, temperature, iconId);
-        }
-
-        const switchBtn = selectComp(".switch-btn");
-        switchBtn.addEventListener("click" , () => {
-            celcius = !celcius;
-            if (celcius === true) switchBtn.textContent = "°C";
-            else switchBtn.textContent = "°F";
-            display.clearPage();
-            display.resultPage();
-            setResultPage();
-        })
     }
 
     function setSearchBar(){
@@ -73,13 +34,40 @@ const controller =(()=>{
                 (async () => {
                     weatherData = await apiHandler.getWeatherData(searchVal);
                     display.clearPage();
-                    display.resultPage();
+                    display.resultPage(celcius);
                     setResultPage();
                 })()
                 .catch (
                     (err) =>  display.showErrorMsg(err)
                 );
             }
+        });
+    }
+
+    function setResultPage(){
+        const curProcessedData = getProcessedData();
+        display.setCurData(curProcessedData);
+        for(let i = 0; i < weatherData.fuWeatherData.length; i++){
+            const curData = weatherData.fuWeatherData[i];
+            const {date} = curData;
+            const temperature = `${getTemperature(curData.temperature, celcius)} ${(celcius === true ? "°C" : "°F")}`;
+            const {iconId} = curData;
+            display.addFutureCard(date, temperature, iconId);
+        }
+
+        const switchBtn = selectComp(".switch-btn");
+        switchBtn.addEventListener("click" , () => {
+            celcius = !celcius;
+            display.clearPage();
+            display.resultPage(celcius);
+            setResultPage();
+        });
+
+        const newSearchBtn = selectComp(".new-search-btn");
+        newSearchBtn.addEventListener("click", ()=>{
+            display.clearPage();
+            display.mainPage();
+            setSearchBar();
         });
     }
 

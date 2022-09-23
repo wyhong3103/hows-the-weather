@@ -179,6 +179,7 @@ html{
     padding: 1rem;
 }
 
+
 .left-flex-container{
     display : flex;
     flex-direction: column;
@@ -187,6 +188,9 @@ html{
     gap : 1rem;
     padding : 1rem;
     font-size : 2.5rem;
+}
+.cur-place, .cur-time{
+    text-align: center;
 }
 
 .cur-temperature{
