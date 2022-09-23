@@ -4,6 +4,12 @@ import './style.css';
 const display = (() => {
     const content = selectComp("#content");
 
+    function showErrorMsg(err){
+        const msg = createComp("h3", "err-msg");
+        msg.textContent = `Error : ${err}`;
+        content.appendChild(msg);
+    }
+
     function mainPage(){
         const title = createComp("div", "title");
         const titleLeft = createComp("span", "title-1");
@@ -241,6 +247,7 @@ const display = (() => {
 
     return {
         mainPage,
+        showErrorMsg,
         resultPage,
         addFutureCard,
         setCurData

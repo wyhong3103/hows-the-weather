@@ -85,6 +85,12 @@ html{
     background-color: var(--grayB);
 }
 
+.err-msg{
+    font-family: var(--main-font);
+    font-size: 3rem;
+    color : var(--grayD);
+}
+
 .main-container{
     height : 100%;
     width : 100%;
