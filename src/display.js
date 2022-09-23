@@ -4,6 +4,10 @@ import './style.css';
 const display = (() => {
     const content = selectComp("#content");
 
+    function clearPage(){
+        content.innerHTML = "";
+    }
+
     function showErrorMsg(err){
         const msg = selectComp(".msg");
         msg.textContent = err;
@@ -252,7 +256,8 @@ const display = (() => {
         showErrorMsg,
         resultPage,
         addFutureCard,
-        setCurData
+        setCurData,
+        clearPage
     }
 })();
 

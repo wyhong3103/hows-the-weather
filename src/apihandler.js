@@ -1,23 +1,7 @@
+import { myFetch } from "./util";
+
 const apiHandler = (() => {
     const apiKey = "d51250594163cc694b2b3bef2feae0c5";
-
-    async function myFetch(url){
-        return fetch(
-            url,
-            {
-                'mode' : 'cors'
-            }
-        ).then(
-            response => {
-                if (!response.ok){
-                    throw new Error("Location not found!");
-                }
-                return response;
-            }
-        ).catch(
-            (err) => Promise.reject(err)
-        )
-    }
 
     async function fetchWeatherData(place){
         const responseCur = await myFetch(`http://api.openweathermap.org/data/2.5/weather?q=${place}&appid=${apiKey}`);
