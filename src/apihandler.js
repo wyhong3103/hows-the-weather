@@ -4,9 +4,9 @@ const apiHandler = (() => {
     const apiKey = "d51250594163cc694b2b3bef2feae0c5";
 
     async function fetchWeatherData(place){
-        const responseCur = await myFetch(`http://api.openweathermap.org/data/2.5/weather?q=${place}&appid=${apiKey}`);
+        const responseCur = await myFetch(`https://api.openweathermap.org/data/2.5/weather?q=${place}&appid=${apiKey}`);
         const curWeatherData = await responseCur.json();
-        const responseFu = await myFetch(`http://api.openweathermap.org/data/2.5/forecast?q=${place}&appid=${apiKey}`);
+        const responseFu = await myFetch(`https://api.openweathermap.org/data/2.5/forecast?q=${place}&appid=${apiKey}`);
         const fuWeatherData = await responseFu.json();
 
         return {
@@ -16,7 +16,7 @@ const apiHandler = (() => {
     }
 
     async function coordToPlace(lon, lat){
-        const response = await myFetch(`http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&appid=${apiKey}`);
+        const response = await myFetch(`https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&appid=${apiKey}`);
 
         const locData = await response.json();
 
