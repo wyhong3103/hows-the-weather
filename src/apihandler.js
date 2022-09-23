@@ -1,6 +1,7 @@
 import { myFetch } from "./util";
 
 const apiHandler = (() => {
+    // YES I AM AWARE!!
     const apiKey = "d51250594163cc694b2b3bef2feae0c5";
 
     async function fetchWeatherData(place){
