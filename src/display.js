@@ -40,9 +40,23 @@ const display = (() => {
 
         const msg = createComp("h3", "msg");
         msg.textContent = "Search : City(optional), Country";
+
+        const footer = createComp("footer");
+        const span = createComp("span");
+        span.textContent = "Made By";
+        const github = createComp("img");
+        github.src = "./assets/github.svg";
+        const profile = createComp("a");
+        profile.textContent = "wyhong3103";
+        profile.setAttribute("href", "https://github.com/wyhong3103");
+        footer.appendChild(span);
+        footer.appendChild(github);
+        footer.appendChild(profile);
+
         content.appendChild(title);
         content.appendChild(searchBar);
         content.appendChild(msg);
+        content.appendChild(footer);
     }
 
     function addFutureCard(date, temperature, iconId){
