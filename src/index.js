@@ -1,15 +1,31 @@
 import { selectComp } from "./util";
+import apiHandler from "./apiHandler";
 import display from "./display";
 
 const controller =(()=>{
     function setSearchBar(){
         const searchInp = selectComp("#search");
         const searchBtn = selectComp(".search-btn");
+
+        searchBtn.addEventListener("click", ()=>{
+            const searchVal = searchInp.value;
+            if (searchVal === "") {
+                searchInp.setAttribute("placeholder", "Please enter a location");
+            }else{
+                (async () => {
+                    const weatherData = await apiHandler.getWeatherData(searchVal);
+                    console.log(weatherData);
+                })()
+                .catch (
+                    (err) =>  display.showErrorMsg(err)
+                );
+            }
+        });
     }
 
     function init(){
         display.mainPage();
-        display.showErrorMsg("HI");
+        setSearchBar();
     }
 
     return {

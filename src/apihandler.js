@@ -1,33 +1,30 @@
 const apiHandler = (() => {
     const apiKey = "d51250594163cc694b2b3bef2feae0c5";
 
-    function handleError(fn){
-        return (
-            (...params) => fn (...params).catch(
-                (err) => err
-            )
-            );
+    async function myFetch(url){
+        return fetch(
+            url,
+            {
+                'mode' : 'cors'
+            }
+        ).then(
+            response => {
+                if (!response.ok){
+                    throw new Error("Location not found!");
+                }
+                return response;
+            }
+        ).catch(
+            (err) => Promise.reject(err)
+        )
     }
 
-    async function fetcWeatherhDate(place){
-        const responseCur = await fetch(
-            `http://api.openweathermap.org/data/2.5/weather?q=${place}&appid=${apiKey}`,
-            {
-                'mode' : 'cors'
-            }
-        );
-
+    async function fetchWeatherData(place){
+        const responseCur = await myFetch(`http://api.openweathermap.org/data/2.5/weather?q=${place}&appid=${apiKey}`);
         const curWeatherData = await responseCur.json();
-
-        const responseFu = await fetch(
-            `http://api.openweathermap.org/data/2.5/forecast?q=${place}&appid=${apiKey}`,
-            {
-                'mode' : 'cors'
-            }
-        );
-
+        const responseFu = await myFetch(`http://api.openweathermap.org/data/2.5/forecast?q=${place}&appid=${apiKey}`);
         const fuWeatherData = await responseFu.json();
-        
+
         return {
             "curWeatherData" : curWeatherData,
             "fuWeatherData" : fuWeatherData,
@@ -35,12 +32,7 @@ const apiHandler = (() => {
     }
 
     async function coordToPlace(lon, lat){
-        const response = await fetch(
-            `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&appid=${apiKey}`,
-            {
-                "mode" : "cors"
-            }
-        );
+        const response = await myFetch(`http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&appid=${apiKey}`);
 
         const locData = await response.json();
 
@@ -58,8 +50,7 @@ const apiHandler = (() => {
     }
 
     async function getWeatherData(place){
-        const weatherData = await fetcWeatherhDate(place);
-
+        const weatherData = await fetchWeatherData(place);
         const {curWeatherData} = weatherData;
         const {fuWeatherData} = weatherData;
 
@@ -71,8 +62,8 @@ const apiHandler = (() => {
             "curWeatherData" : {
                 "temperature" : curWeatherData.main.temp,
                 "place" : loc,
-                "desc" : curWeatherData.weather.description,
-                "iconId" : curWeatherData.weather.icon,
+                "desc" : curWeatherData.weather[0].description,
+                "iconId" : curWeatherData.weather[0].icon,
                 "feelsLikeVal" : curWeatherData.main.feels_like,
                 "humidityVal" : curWeatherData.main.humidity,
                 "visibilityVal" : curWeatherData.visibility,
@@ -82,16 +73,15 @@ const apiHandler = (() => {
             "fuWeatherData" : []
         }  
 
-        for(let i = 0; i < fuWeatherData.list.length(); i++){
+        for(let i = 0; i < fuWeatherData.list.length; i++){
             const dt = fuWeatherData.list[i].dt_txt;
-            const {date, time} = dt.split(" ");
-
+            const [date, time] = dt.split(" ");
             if (time === "12:00:00"){
                 ret.fuWeatherData.push(
                     {
                         "date" : date,
                         "temperature" : fuWeatherData.list[i].main.temp,
-                        "iconId" : fuWeatherData.list[i].weather.icon
+                        "iconId" : fuWeatherData.list[i].weather[0].icon
                     }
                 )
             }
@@ -100,11 +90,10 @@ const apiHandler = (() => {
         return ret;
     }
 
-    const getWeatherDataSafe = handleError(getWeatherData);
 
     return{
-        getWeatherDataSafe
+        getWeatherData
     };
-});
+})();
 
 export default apiHandler;

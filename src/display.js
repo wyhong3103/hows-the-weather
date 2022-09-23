@@ -6,7 +6,7 @@ const display = (() => {
 
     function showErrorMsg(err){
         const msg = createComp("h3", "err-msg");
-        msg.textContent = `Error : ${err}`;
+        msg.textContent = err;
         content.appendChild(msg);
     }
 
