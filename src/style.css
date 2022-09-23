@@ -85,10 +85,10 @@ html{
     background-color: var(--grayB);
 }
 
-.err-msg{
+.msg{
     font-family: var(--main-font);
-    font-size: 3rem;
-    color : var(--grayD);
+    font-size: 2rem;
+    color : var(--grayB);
 }
 
 .main-container{

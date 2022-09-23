@@ -10,7 +10,8 @@ const controller =(()=>{
         searchBtn.addEventListener("click", ()=>{
             const searchVal = searchInp.value;
             if (searchVal === "") {
-                searchInp.setAttribute("placeholder", "Please enter a location");
+                const msg = selectComp(".msg");
+                msg.textContent = "Please enter a location";
             }else{
                 (async () => {
                     const weatherData = await apiHandler.getWeatherData(searchVal);

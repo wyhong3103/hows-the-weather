@@ -5,9 +5,8 @@ const display = (() => {
     const content = selectComp("#content");
 
     function showErrorMsg(err){
-        const msg = createComp("h3", "err-msg");
+        const msg = selectComp(".msg");
         msg.textContent = err;
-        content.appendChild(msg);
     }
 
     function mainPage(){
@@ -25,7 +24,6 @@ const display = (() => {
         const searchInpDiv = createComp("div", "search-inp");
         const searchInp = createComp("input");
         searchInp.id = "search";
-        searchInp.setAttribute("placeholder", "City(optional), Country");
         searchInpDiv.appendChild(searchInp);
 
         const searchBtn = createComp("div","search-btn");
@@ -35,8 +33,12 @@ const display = (() => {
 
         searchBar.appendChild(searchInpDiv);
         searchBar.appendChild(searchBtn);
+
+        const msg = createComp("h3", "msg");
+        msg.textContent = "Search : City(optional), Country";
         content.appendChild(title);
         content.appendChild(searchBar);
+        content.appendChild(msg);
     }
 
     function addFutureCard(date, temperature, iconId){

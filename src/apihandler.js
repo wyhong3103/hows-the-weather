@@ -56,7 +56,6 @@ const apiHandler = (() => {
 
         const locArr = await coordToPlace(curWeatherData.coord.lon, curWeatherData.coord.lat);
         const loc = locArr.join(", ");
-        
 
         const ret = {
             "curWeatherData" : {
