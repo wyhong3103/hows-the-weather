@@ -1,4 +1,3 @@
-
 function createComp(type, cls = ""){
     const element = document.createElement(type);
     if (cls !== ""){
@@ -30,6 +29,7 @@ async function myFetch(url){
 }
 
 function getTime(timezone){
+    // Best & easiest way I could think of to extract a date & time from different time zone
     const timestamp = (new Date().getTime()) + (timezone*1000);
     const date = (new Date(timestamp)).toUTCString();
     const re = /(.+) GMT/;
