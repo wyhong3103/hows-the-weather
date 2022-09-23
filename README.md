@@ -14,4 +14,4 @@ Hello, this is my weather forecasting webapp. Feel free to use it!
 
 # Live Demo
 
-[Click Me!](https://wyhong3103.github.io/whats-the-weather/)
+[Click Me!](https://wyhong3103.github.io/hows-the-weather/)
