@@ -15,7 +15,7 @@ const controller =(()=>{
             "iconId" : weatherData.curWeatherData.iconId,
             "feelsLikeVal" : `${getTemperature(weatherData.curWeatherData.feelsLikeVal, celcius)} ${(celcius === true ? "°C" : "°F")}`,
             "humidityVal" : `${weatherData.curWeatherData.humidityVal} %`,
-            "visibilityVal" :`${Math.floor(weatherData.curWeatherData.visibilityVal/10000) * 100} %`,
+            "visibilityVal" :`${weatherData.curWeatherData.visibilityVal} m`,
             "windVal" : `${weatherData.curWeatherData.windVal} m/s`,
             "cloudinessVal" : `${weatherData.curWeatherData.cloudinessVal} %`,
         }
